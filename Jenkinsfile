@@ -12,22 +12,43 @@ pipeline {
             }
 
             stage('Prueba maven'){
-            	steps{
+                steps{
 
-            		withMaven(maven:'maven-3.2.5'){
-            		
-            			sh 'mvn --version'
-            		}
-            	}
+                    withMaven(maven:'maven-3.2.5'){
+                    
+                        sh 'mvn --version'
+                    }
+                }
             }
 
             stage('install'){
 
-            	steps{
-            		withMaven(maven:'maven-3.2.5'){
-            			sh 'mvn install'
-            		}
-            	}
+                steps{
+                    withMaven(maven:'maven-3.2.5'){
+                        sh 'mvn install'
+                    }
+                }
+
+            }
+
+            stage('Test'){
+
+                steps{
+                    withMaven(maven:'maven-3.2.5'){
+                        sh 'mvn upload'
+                    }
+
+                }
+
+            }
+
+            stage('Deploy to Nexus'){
+                steps{
+                    withMaven(maven:'maven-3.2.5'){
+                        sh 'mvn test'
+                    }
+
+                }
 
             }
 
