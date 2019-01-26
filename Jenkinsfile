@@ -24,11 +24,11 @@ pipeline {
                 }
             }
 
-            stage('install'){
+            stage('compile'){
 
                 steps{
                     withMaven(maven:'maven-3.2.5'){
-                        sh 'mvn install'
+                        sh 'mvn clean compile -U'
                     }
                 }
 
