@@ -1,6 +1,9 @@
 pipeline {
     agent any
-
+    
+        environment {
+             NEXUS_URL = 'http://localhost:8081'
+    }
         stages {
 
             stage('Prueba echo') {
@@ -35,7 +38,7 @@ pipeline {
 
                 steps{
                     withMaven(maven:'maven-3.2.5'){
-                        sh 'mvn upload'
+                        sh 'mvn test'
                     }
 
                 }
@@ -45,7 +48,7 @@ pipeline {
             stage('Deploy to Nexus'){
                 steps{
                     withMaven(maven:'maven-3.2.5'){
-                        sh 'mvn test'
+                        sh 'mvn deploy -DskipTests -DaltDeploymentRepository=snapshots::default::$NEXUS_URL/repositories/hm-snapshots/'
                     }
 
                 }
