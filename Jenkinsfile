@@ -48,7 +48,8 @@ pipeline {
             stage('Deploy to Nexus'){
                 steps{
                     withMaven(maven:'maven-3.2.5'){
-                        sh 'mvn clean deploy -Dmaven.test.skip=true'
+                        //sh 'mvn clean deploy -Dmaven.test.skip=true'
+                        sh 'mvn deploy -DskipTests -DaltDeploymentRepository=snapshots::default::$NEXUS_URL/repositories/snapshots/
                     }
 
                 }
