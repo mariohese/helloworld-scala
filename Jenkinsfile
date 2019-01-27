@@ -45,6 +45,17 @@ pipeline {
 
             }
 
+            stage('Watching Maven creentials'){
+
+                steps{
+                    withMaven(maven:'maven-3.2.5'){
+                        sh 'mvn help:effective-settings'
+                    }
+
+                }
+
+            }
+
             stage('Deploy to Nexus'){
                 steps{
                     withMaven(maven:'maven-3.2.5'){
